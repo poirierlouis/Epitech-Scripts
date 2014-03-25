@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -f == "${HOME}/bin/my_select" ]; then
+    echo "Cannot find my_select binary.";
+    exit;
+fi
+
+dir=$(ls -1 "${HOME}/rendu/")
+dir=$(echo $dir | sed "s/\\n/ /g")
+
+repo=$(my_select $dir)
+repo=$(echo $repo | cut -d$'\n' -f1)
+
+if [ -f ".git" ]; then
+    echo "There is not git repository.";
+else
+    git clone "${USER}@git.epitech.eu:/${USER}/${repo}";
+fi

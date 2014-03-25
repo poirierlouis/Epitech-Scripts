@@ -1,0 +1,9 @@
+#!/bin/bash
+
+xrandr --output VGA-0 --auto
+
+if [ $# -eq 1 ]; then
+    exit;
+fi
+
+xrandr --output VGA-0 --right-of LVDS

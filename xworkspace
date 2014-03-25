@@ -1,0 +1,124 @@
+#!/bin/bash
+
+# Title of windows
+title="Think twice, code once!"
+
+# Array of size & position of windows
+TERMS[0]="80"
+TERMS[1]="33"
+TERMS[2]="+0"
+TERMS[3]="+0"
+
+TERMS[4]="80"
+TERMS[5]="33"
+TERMS[6]="+0"
+TERMS[7]="-0"
+
+TERMS[8]="80"
+TERMS[9]="33"
+TERMS[10]="-0"
+TERMS[11]="+0"
+
+TERMS[12]="80"
+TERMS[13]="33"
+TERMS[14]="-0"
+TERMS[15]="-0"
+
+TERMS[16]="80"
+TERMS[17]="33"
+TERMS[18]="+650"
+TERMS[19]="+0"
+
+TERMS[20]="80"
+TERMS[21]="33"
+TERMS[22]="+650"
+TERMS[23]="-0"
+
+# Check the number of arguments
+if [ $# -eq 0 ] || [ $# -gt 3 ]; then
+    # Usage's message
+    echo "Usage of xworkspace:";
+    echo "xworkspace [-d] NUMBERS OF XTERM";
+    echo "xworkspace -e NUMBER OF THE XTERM";
+fi
+
+if [ $# -eq 1 ]; then
+    # Check the validity of the number of windows to create
+    if [ $1 -ne 0 ]; then
+	# Get the current directory
+	path=`pwd`;
+
+	# For specific commands
+	cmd="cd $tmp && ls --color -la && /bin/bash";
+
+	# Is a new project ?
+	[ -f "$path/Makefile" ];
+	new=$?;
+
+	# Check if it's necessary to create the template for the project
+	if [ $new -eq 1 ]; then
+	    ## ONLY FOR C LANGUAGE ##
+	    # Temporary directory for customization
+	    tmp=$path;
+
+	    # Create folders
+	    mkdir includes;
+	    mkdir libraries;
+	    mkdir sources;
+
+	    # Copy Makefile's template
+	    cp ~/Documents/Epitech/templates/Makefile .
+
+	    # Copy main's template
+	    cp ~/Documents/Epitech/templates/main.c sources/.
+
+	    # Copy header's template
+	    cp ~/Documents/Epitech/templates/template.h includes/.
+
+	    # Copy libraries' template
+	    cp ~/Documents/Epitech/templates/libraries/*.a libraries/.
+	    cp ~/Documents/Epitech/templates/libraries/*.h includes/.
+
+	    ##                     ##
+	fi
+
+	# Loop for every windows to create
+	for ((i = 0; i < $1; i++))
+	do
+	    if [ $i -gt 0 ] && [ $i -lt 6 ]; then
+		tmp="$path/sources/";
+	    else
+		tmp=$path;
+	    fi
+	    if [ $i -eq 2 ]; then
+		tmp="$path/includes/";
+	    fi
+	    if [ $new -eq 1 ] && [ $i -eq 0 ]; then
+		cmd="cd $tmp && emacs -nw Makefile";
+	    elif [ $new -eq 1 ] && [ $i -eq 4 ]; then
+		cmd="cd $tmp && emacs -nw main.c";
+	    else
+		cmd="cd $tmp && ls --color -la && /bin/bash";
+	    fi
+	    xterm -T "$title" -fa "DejaVu Sans Mono" -fs 10 -geometry "${TERMS[$i * 4]}x${TERMS[$i * 4 + 1]}${TERMS[$i * 4 + 2]}${TERMS[$i * 4 + 3]}" -e "$cmd" &
+	done
+    fi
+fi
+if [ $# -eq 2 ]; then
+    # Check the option
+    if [ "$1" = "-e" ]; then
+	# Check the validity of the window to create
+	if [ $2 -gt 0 ] && [ $2 -lt 7 ]; then
+	    # Set the value of i
+	    i=$(($2 - 1));
+
+	    # Get the current directory
+	    path=`pwd`;
+
+	    # Call the xterm
+	    xterm -T "$title" -fa "DejaVu Sans Mono" -fs 10 -geometry "${TERMS[$i * 4]}x${TERMS[$i * 4 + 1]}${TERMS[$i * 4 + 2]}${TERMS[$i * 4 + 3]}" -e "cd $path && ls --color -la && /bin/bash" &
+	fi
+    else
+	echo "Unknown option.";
+    fi
+fi

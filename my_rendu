@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -f != ".git" ]; then
+    blih -u "${USER}" repository create "${PWD##*/}"
+    blih -u "${USER}" repository setacl "${PWD##*/}" ramassage-tek r
+    git init
+    git remote add origin "${USER}@git.epitech.eu:/${USER}/${PWD##*/}"
+fi
+
+git add --all
+git commit -am "rendu commit"
+git push origin master

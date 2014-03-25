@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]; then
+    git add --all
+    git commit -m "$1"
+    git push
+else
+    echo -e "\e[0;33mYou have to provide a message.\e[0;m"
+fi
