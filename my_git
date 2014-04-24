@@ -1,6 +1,8 @@
 #!/bin/bash
 
 if [ $# -eq 1 ]; then
+    make fclean
+
     git add --all
     git commit -m "$1"
 
@@ -17,6 +19,7 @@ if [ $# -eq 1 ]; then
 	echo -e "\e[0;31mError: pulling doesn't succeed, you may have to fix merging conflicts :s\e[0;m"
 	exit 2;
     fi
+
     echo -e "\e[0;32mSuccess: pull & push done :)\e[0;m"
     exit 0;
 else

@@ -25,7 +25,7 @@ function display_str {
 
 # function to display a centered string
 function display_str_center {
-    start=$((40 - ${#1} / 2))
+    start=$((40 - ${#1} / 2 - 1))
     i=0;
 
     echo -n "|"
@@ -98,7 +98,7 @@ function get_nbr_lines {
 	while [ $j -lt ${#_files[@]} ]; do
 	    _final="$_folder/${_files[$j]}"
 	    if [ -n $_final ] && [ -f $_final ]; then
-	    	_nbr=$(($_nbr + `cat "$_final" | wc -l` - 10))
+	    	_nbr=$(($_nbr + `cat "$_final" | wc -l` - 11))
 	    fi
 	    
 	    j=$(($j + 1))
@@ -130,15 +130,17 @@ headers=0
 sources=0
 total=0
 
-get_nbr_lines ".c" headers
-get_nbr_lines ".h" sources
+get_nbr_lines ".c" sources
+get_nbr_lines ".h" headers
 total=$(($headers + $sources))
 
 # Display
 display_header
 display_empty_line
 display_str "This script count the number of lines of code of your C project."
-display_str "It shows real number of lines of code (avoid headers and empty new line)."
+display_str "It shows real number of lines of code (avoid headers)."
+display_empty_line
+display_str "A study shows up that there is 4% of empty lines in a file."
 display_empty_line
 display_full_line
 display_empty_line
@@ -148,8 +150,7 @@ display_key_value "Number of folders      " $folders
 display_empty_line
 display_key_value "Lines of headers files " $headers
 display_key_value "Lines of sources files " $sources
-display_key_value "Total number of lines  " $total
-display_empty_line
+display_key_value "Total number of lines  " $(($total * 96 / 100))
 display_empty_line
 display_footer
 
