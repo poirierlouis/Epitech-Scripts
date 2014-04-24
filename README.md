@@ -28,6 +28,12 @@ RECEIVER (exécute la commande en premier)
 ./my_nc mon_fichier.tgz 0
 
 --------------------------------------------------------------------------------
+my_wc :
+--------------------------------------------------------------------------------
+Script qui via wc compte le nombre de lignes de code dans un projet en tenant
+compte des headers et sources. Le header Emacs de 10 lignes n'est pas compté.
+
+--------------------------------------------------------------------------------
 my_rendu (EPITECH) :
 --------------------------------------------------------------------------------
 Script qui permet de créer un repository avec les droits actl par défaut. Puis

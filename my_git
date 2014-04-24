@@ -3,7 +3,23 @@
 if [ $# -eq 1 ]; then
     git add --all
     git commit -m "$1"
-    git push
+
+    if [ $? -ne 0 ]; then
+	echo -e "\e[0;33mWarning : try to commit again...\e[0;m"
+	git commit -m "$1"
+    fi
+    
+    git pull
+    
+    if [ $? -eq 0 ]; then
+	git push
+    else
+	echo -e "\e[0;31mError: pulling doesn't succeed, you may have to fix merging conflicts :s\e[0;m"
+	exit 2;
+    fi
+    echo -e "\e[0;32mSuccess: pull & push done :)\e[0;m"
+    exit 0;
 else
-    echo -e "\e[0;33mYou have to provide a message.\e[0;m"
+    echo -e "\e[0;31mError: you have to provide a message :@\e[0;m"
+    exit 1;
 fi

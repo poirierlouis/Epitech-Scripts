@@ -86,12 +86,20 @@ if [ $# -eq 1 ]; then
 	for ((i = 0; i < $1; i++))
 	do
 	    if [ $i -gt 0 ] && [ $i -lt 6 ]; then
-		tmp="$path/sources/";
+		if [ -d "$path/sources/" ]; then
+		    tmp="$path/sources/";
+	        elif [ -d "$path/Sources/" ]; then
+		    tmp="$path/Sources/"
+		fi
 	    else
 		tmp=$path;
 	    fi
 	    if [ $i -eq 2 ]; then
-		tmp="$path/includes/";
+		if [ -d "$path/includes/" ]; then
+		    tmp="$path/includes/";
+	        elif [ -d "$path/Includes/" ]; then
+		    tmp="$path/Includes/"
+		fi
 	    fi
 	    if [ $new -eq 1 ] && [ $i -eq 0 ]; then
 		cmd="cd $tmp && emacs -nw Makefile";
