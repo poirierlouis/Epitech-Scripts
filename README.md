@@ -4,16 +4,19 @@ Shell Scripts
 --------------------------------------------------------------------------------
 my_clone (EPITECH) :
 --------------------------------------------------------------------------------
-Script qui via votre my_select (placer dans le répertoire /home/${USER}/bin)
+Script qui via votre my_select (placer dans le répertoire ${HOME}/bin)
 permet d'effectuer une sélection d'un de vos projets se trouvant dans
-/home/${USER}/rendu et de réaliser un clone (via git clone).
+${HOME}/rendu et de réaliser un clone (via git clone).
 L'intérêt est de pouvoir vérifier que votre rendu a bien fonctionné.
 
 --------------------------------------------------------------------------------
 my_git :
 --------------------------------------------------------------------------------
-Script qui exécute un add, commit et push à la suite avec en paramètre le
-message du git commit -m
+Script qui prend en paramètre le message à utiliser pour le commit.
+Il exécute les commandes : [make fclean], add, commit, pull & push.
+Si le pull échoue, il vous suffit de corriger les conflits puis de relancer
+le script ;)
+La commande make fclean est exécuté uniquement si un Makefile est trouvé.
 
 --------------------------------------------------------------------------------
 my_nc :
@@ -28,16 +31,16 @@ RECEIVER (exécute la commande en premier)
 ./my_nc mon_fichier.tgz 0
 
 --------------------------------------------------------------------------------
-my_wc :
+my_wc (EPITECH) :
 --------------------------------------------------------------------------------
 Script qui via wc compte le nombre de lignes de code dans un projet en tenant
-compte des headers et sources. Le header Emacs de 10 lignes n'est pas compté.
+compte des headers et sources. Le header Emacs de 11 lignes n'est pas compté.
 
 --------------------------------------------------------------------------------
 my_rendu (EPITECH) :
 --------------------------------------------------------------------------------
 Script qui permet de créer un repository avec les droits actl par défaut. Puis
-réalise l'équivalent du script `my_git` si le dossier .git est disponible.
+réalise l'équivalent du script `my_git` si le dossier .git est présent.
 
 --------------------------------------------------------------------------------
 my_wpa (EPITECH) :
@@ -49,7 +52,7 @@ connecter au réseau.
 my_xrandr (EPITECH) :
 --------------------------------------------------------------------------------
 Script qui permet de connecter la sortie VGA à un vidéo projecteur pour scinder
-en deux l'écran du PC avec le vidéo projecteur
+en deux l'écran du PC avec le vidéo projecteur.
 
 --------------------------------------------------------------------------------
 xworkspace (EPITECH) :
