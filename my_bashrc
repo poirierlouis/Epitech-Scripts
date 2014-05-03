@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Effectue un 'ls -l' mais n'affichage pas les fichiers *.o
+alias lo='ls -l | grep -v ".o$"'
+
 # Filtre l'auto-complétion lors de l'utilisation de l'alias ne en ignorant
 # les fichiers *.o
 complete -f -X '*.o' ne
