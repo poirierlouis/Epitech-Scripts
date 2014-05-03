@@ -2,6 +2,14 @@ Shell Scripts
 =============
 
 --------------------------------------------------------------------------------
+my_bashrc (EPITECH) :
+--------------------------------------------------------------------------------
+Une commande qui concerne l'auto-complétion et qui permet d'ignorer les
+fichiers *.o
+Un alias afs pour pouvoir se connecter directement sur l'AFS via son login
+Epitech.
+
+--------------------------------------------------------------------------------
 my_clone (EPITECH) :
 --------------------------------------------------------------------------------
 Script qui via votre my_select (placer dans le répertoire ${HOME}/bin)

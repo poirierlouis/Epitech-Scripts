@@ -8,5 +8,5 @@ if [ -f != ".git" ]; then
 fi
 
 git add --all
-git commit -am "rendu commit"
+git commit -m "0x2A"
 git push origin master

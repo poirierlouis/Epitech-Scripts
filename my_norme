@@ -1,0 +1,115 @@
+#!/bin/bash
+
+## DEFINE FUNCTIONS ##
+
+# function to display a string
+function display_str {
+    if [ ${#1} -ge 74 ]; then
+	return 0
+    fi
+    
+    i=3;
+    
+    echo -n "|  "
+    while [ $i -lt 77 ]; do
+	if [ $i -eq 3 ]; then
+	    echo -n $1
+	    i=$(($i + ${#1} + 1))
+	else
+	    echo -n " "
+	    i=$(($i + 1))
+	fi
+    done
+    echo "  |"
+}
+
+# function to display a centered string
+function display_str_center {
+    start=$((40 - ${#1} / 2 - 1))
+    i=0;
+
+    echo -n "|"
+    while [ $i -lt 78 ]; do
+	if [ $i -eq $start ]; then
+	    echo -n $1
+	    i=$(($i + ${#1} + 1))
+	else
+	    echo -n " "
+	    i=$(($i + 1))
+	fi
+    done
+    echo "|"
+}
+
+# function to display the header of the script
+function display_header {
+    display_full_line
+    display_empty_line
+    display_str_center "Epitech's standard"
+    display_empty_line
+    display_full_line
+}
+
+# function to display the footer of the script
+function display_footer {
+    display_full_line
+    echo "|                                                              by LuigiPeace  |"
+    display_full_line
+}
+
+# function to display an empty line
+function display_empty_line {
+    echo "|                                                                             |"    
+}
+
+# function to display a full line
+function display_full_line {
+    echo "+-----------------------------------------------------------------------------+"
+}
+
+# function to display a new line of the form :
+# |  KEY: VALUE                                              |
+function display_key_value {
+    i=$((${#1} + ${#2} + 7))
+    
+    echo -n "|  $1: $2"
+    while [ $i -lt 80 ]; do
+	echo -n " "
+	i=$(($i + 1))
+    done
+    echo "|"
+}
+
+## ENDIF FUNCTIONS ##
+
+
+
+## START ##
+
+# Get project name
+project="${PWD##*/}"
+
+# Get number of files *.c & *.h
+files=$((`ls -R | grep "\.h$" | wc -l` + `ls -R | grep "\.c$" | wc -l`))
+
+folders=(`ls -R | grep ":$"`)
+folders=$((${#folders[@]} - 1))
+
+# Display
+display_header
+display_empty_line
+display_str "This script parse every .c and .h files of your project and check for"
+display_str "Epitech's standard errors."
+display_empty_line
+display_str "A study shows up that there is 42% of the students who don't code a"
+display_str "project while respecting Epitech's standard."
+display_empty_line
+display_full_line
+display_empty_line
+display_key_value "Project name           " $project
+display_key_value "Number of files        " $files
+display_key_value "Number of folders      " $folders
+display_empty_line
+display_footer
+
+## END ##

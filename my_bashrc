@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Filtre l'auto-complétion lors de l'utilisation de l'alias ne en ignorant
+# les fichiers *.o
+complete -f -X '*.o' ne
+
+# AFS
+alias afs='ssh ${USER}@ssh.epitech.net'
