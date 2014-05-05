@@ -106,7 +106,7 @@ if [ $# -eq 1 ]; then
 	    elif [ $new -eq 1 ] && [ $i -eq 4 ]; then
 		cmd="cd $tmp && emacs -nw main.c";
 	    else
-		cmd="cd $tmp && ls --color -la && /bin/bash";
+		cmd="cd $tmp && ls -l --color | grep -v \"\.o\" && /bin/bash";
 	    fi
 	    xterm -T "$title" -fa "DejaVu Sans Mono" -fs 10 -geometry "${TERMS[$i * 4]}x${TERMS[$i * 4 + 1]}${TERMS[$i * 4 + 2]}${TERMS[$i * 4 + 3]}" -e "$cmd" &
 	done
