@@ -143,14 +143,14 @@ echo " public:" >> "$filename"
 echo "  ${classname}();" >> "$filename"
 
 if [ $flag_coplien -eq 1 ]; then
-    echo "  ${classname}(const ${classname}& ${classname});" >> "$filename"    
+    echo "  ${classname}(const ${classname}& ${classname,,});" >> "$filename"    
 fi
 
 echo "  ~${classname}();" >> "$filename"
 echo >> "$filename"
 
 if [ $flag_coplien -eq 1 ]; then
-    echo -e "  ${classname}&\t\t\toperator=(const ${classname}& ${classname});" >> "$filename"
+    echo -e "  ${classname}&\t\t\toperator=(const ${classname}& ${classname,,});" >> "$filename"
     echo >> "$filename"
 fi
 
@@ -179,9 +179,9 @@ echo >> "$filename"
 
 if [ $flag_coplien -eq 1 ]; then    
     if [ -n "$inheritancename" ]; then
-	echo "${classname}::${classname}(const ${classname}& ${classname}) : ${inheritancename}()" >> "$filename"
+	echo "${classname}::${classname}(const ${classname}& ${classname,,}) : ${inheritancename}()" >> "$filename"
     else
-	echo "${classname}::${classname}(const ${classname}& ${classname})" >> "$filename"
+	echo "${classname}::${classname}(const ${classname}& ${classname,,})" >> "$filename"
     fi
     echo "{" >> "$filename"
     echo "}" >> "$filename"
@@ -195,7 +195,7 @@ echo >> "$filename"
 
 if [ $flag_coplien -eq 1 ]; then    
     echo >> "$filename"
-    echo -e "${classname}&\t\t\t${classname}::operator=(const ${classname}& ${classname})" >> "$filename"
+    echo -e "${classname}&\t\t\t${classname}::operator=(const ${classname}& ${classname,,})" >> "$filename"
     echo "{" >> "$filename"
     echo "  if (this != &${classname})"  >> "$filename"
     echo "    {"  >> "$filename"
