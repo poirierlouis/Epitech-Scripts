@@ -17,7 +17,7 @@ fichier .cpp.
 Il suffit de spécifier le nom de la classe à générer, si l'on souhaite oui ou
 non générer la forme de Coplien et si la classe hérite d'une autre classe.
 
-Usage: ./my_cppheader <classname> <hh> [coplienform] [inheritanceclass]
+Usage: ./my_cppheader classname hh [coplienform] [inheritanceclass]
 
 Pour plus d'informations concernant le usage :
 $> head -13 my_cppheader
