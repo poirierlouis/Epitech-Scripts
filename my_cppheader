@@ -166,13 +166,23 @@ info_msg "Generate ${filename} file"
 echo -e "#include\t\t\t\"${classname}.${flag_headerfmt}\"" > "$filename"
 echo >> "$filename"
 
-echo "${classname}::${classname}()" >> "$filename"
+if [ -n "$inheritancename" ]; then
+    echo "${classname}::${classname}() : ${inheritancename}()" >> "$filename"
+else
+    echo "${classname}::${classname}()" >> "$filename"
+fi
+
+
 echo "{" >> "$filename"
 echo "}" >> "$filename"
 echo >> "$filename"
 
 if [ $flag_coplien -eq 1 ]; then    
-    echo "${classname}::${classname}(const ${classname}& ${classname})" >> "$filename"
+    if [ -n "$inheritancename" ]; then
+	echo "${classname}::${classname}(const ${classname}& ${classname}) : ${inheritancename}()" >> "$filename"
+    else
+	echo "${classname}::${classname}(const ${classname}& ${classname})" >> "$filename"
+    fi
     echo "{" >> "$filename"
     echo "}" >> "$filename"
     echo >> "$filename"
