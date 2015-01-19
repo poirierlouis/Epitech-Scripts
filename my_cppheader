@@ -139,7 +139,7 @@ else
 fi
 echo "{" >> "$filename"
 
-echo " public:" >> "$filename"
+echo "public:" >> "$filename"
 echo "  ${classname}();" >> "$filename"
 
 if [ $flag_coplien -eq 1 ]; then
