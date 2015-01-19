@@ -197,7 +197,7 @@ if [ $flag_coplien -eq 1 ]; then
     echo >> "$filename"
     echo -e "${classname}&\t\t\t${classname}::operator=(const ${classname}& ${classname,,})" >> "$filename"
     echo "{" >> "$filename"
-    echo "  if (this != &${classname})"  >> "$filename"
+    echo "  if (this != &${classname,,})"  >> "$filename"
     echo "    {"  >> "$filename"
     echo "    }"  >> "$filename"
     echo "  return (*this);"  >> "$filename"
