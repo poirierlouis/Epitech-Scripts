@@ -10,6 +10,19 @@ Un alias afs pour pouvoir se connecter directement sur l'AFS via son login
 Epitech.
 
 --------------------------------------------------------------------------------
+my_cppheader :
+--------------------------------------------------------------------------------
+Script qui permet de générer un fichier .h ou .hh d'une classe ainsi que le
+fichier .cpp.
+Il suffit de spécifier le nom de la classe à générer, si l'on souhaite oui ou
+non générer la forme de Coplien et si la classe hérite d'une autre classe.
+
+Usage: ./my_cppheader <classname> <hh> [coplienform] [inheritanceclass]
+
+Pour plus d'informations concernant le usage :
+$> head -13 my_cppheader
+
+--------------------------------------------------------------------------------
 my_clone (EPITECH) :
 --------------------------------------------------------------------------------
 Script qui via votre my_select (placer dans le répertoire ${HOME}/bin)
