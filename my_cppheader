@@ -1,0 +1,162 @@
+#!/bin/bash
+
+#
+# Usage : ./my_cppheader <classname> <hh> [coplienform] [inheritanceclass]
+# 
+# MANDATORY
+# classname : the name of your class (used for filename, classname, header protection)
+# hh : should use 'h' or 'hh' header format filename
+# 
+# OPTION
+# coplienfom : 1 to create functions needed by the Coplien's form, 0 otherwise
+# inhertanceclass : the name of the class your class inherit from
+#
+
+## Color stuff
+#
+ERROR='\033[0;31m'
+WARNING='\033[0;33m'
+SUCCESS='\033[0;32m'
+INFO='\033[0;35m'
+NORMAL='\033[0m'
+TAB='\t\t'
+
+LOG_ERROR=`echo -e "[${ERROR}Error${NORMAL}]   "`
+LOG_WARNING=`echo -e "[${WARNING}Warning${NORMAL}] "`
+LOG_SUCCESS=`echo -e "[${SUCCESS}Success${NORMAL}] "`
+LOG_INFO=`echo -e "[${INFO}Info${NORMAL}]    "`
+
+## Variable/flag stuff
+#
+classname=""
+flag_headerfmt=""
+flag_coplien=0
+inheritancename=""
+
+## Helper stuff
+#
+function	fmt_msg()
+{
+    echo -e "$1" "$2" "$3"
+}
+
+function	error_msg()
+{
+    echo
+    fmt_msg "$LOG_ERROR" "$1"
+    echo
+    exit
+}
+
+function        warning_msg()
+{
+    fmt_msg "$LOG_WARNING" "$1"
+}
+
+function        success_msg()
+{
+    fmt_msg "$LOG_SUCCESS" "$1"
+}
+
+function	info_msg()
+{
+    fmt_msg "$LOG_INFO" "$1"
+}
+
+
+
+## Intro
+#
+
+clear
+
+echo
+info_msg "Coffe me a C++ Header"
+info_msg "by poirie_l"
+echo
+
+
+
+## Parse arguments
+#
+
+if [ $# -lt 2 ] || [ $# -gt 4 ]; then
+    error_msg "Usage : ./my_cppheader <classname> <hh> [coplienform] [inheritanceclass]"
+fi
+
+classname="$1"
+flag_headerfmt="$2"
+
+if [ $# -ge 3 ] && [ "$3" = "1" ]; then
+    info_msg "Using Coplien's form, your doing the right way :)"
+    flag_coplien=1
+fi
+
+if [ $# -eq 4 ]; then
+    if [ -z "$4" ] || [ ! -f "$4.${flag_headerfmt}" ]; then
+	warning_msg "Cannot find the file $4.${flag_headerfmt}, will generate without inheritance..."
+    else
+	inheritancename="$4"
+    fi
+fi
+
+if [ -e "${classname}.${flag_headerfmt}" ]; then
+    error_msg "The file ${classname}.${flag_headerfmt} already exist !"
+fi
+
+
+
+## Generate files
+#
+
+filename="${classname}.${flag_headerfmt}"
+echo
+info_msg "Generate ${filename} file"
+
+echo -e "#ifndef\t\t\t__${classname^^}_${flag_headerfmt^^}__" > "$filename"
+echo -e "# define\t\t__${classname^^}_${flag_headerfmt^^}__" >> "$filename"
+
+echo >> "$filename"
+
+if [ -n "$inheritancename" ]; then
+    echo -e "# include\t\t\"${inheritancename}.${flag_headerfmt}\"" >> "$filename"
+    echo >> "$filename"
+fi
+
+if [ -n "$inheritancename" ]; then
+    echo -e "class\t\t\t${classname} : public ${inheritancename}" >> "$filename"
+else
+    echo -e "class\t\t\t${classname}" >> "$filename"
+fi
+echo "{" >> "$filename"
+
+echo " public:" >> "$filename"
+echo "  ${classname}();" >> "$filename"
+
+if [ $flag_coplien -eq 1 ]; then
+    echo "  ${classname}(const ${classname}& ${classname});" >> "$filename"    
+fi
+
+echo "  ~${classname}();" >> "$filename"
+echo >> "$filename"
+
+if [ $flag_coplien -eq 1 ]; then
+    echo -e "  ${classname}&\t\t\toperator=(const ${classname}& ${classname});" >> "$filename"
+    echo >> "$filename"
+fi
+
+echo "};" >> "$filename"
+echo >> "$filename"
+
+echo -e "#endif\t\t\t/* !__${classname^^}_${flag_headerfmt^^}__ */" >> "$filename"
+
+echo
+success_msg "Class ${classname} generated with success :"
+
+if [ $flag_coplien -eq 1 ]; then
+    success_msg "Coplien's form done"
+fi
+
+if [ -n "$inheritancename" ]; then
+    success_msg "Inherit from ${inheritancename}"
+fi
