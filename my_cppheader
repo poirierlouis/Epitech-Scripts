@@ -104,12 +104,21 @@ if [ -e "${classname}.${flag_headerfmt}" ]; then
     error_msg "The file ${classname}.${flag_headerfmt} already exist !"
 fi
 
+if [ -e "${classname}.cpp" ]; then
+    error_msg "The file ${classname}.cpp already exist !"
+fi
 
 
+
+#
 ## Generate files
 #
 
+## Generate HEADER file
+#
+
 filename="${classname}.${flag_headerfmt}"
+
 echo
 info_msg "Generate ${filename} file"
 
@@ -150,8 +159,49 @@ echo >> "$filename"
 
 echo -e "#endif\t\t\t/* !__${classname^^}_${flag_headerfmt^^}__ */" >> "$filename"
 
+
+filename="${classname}.cpp"
+info_msg "Generate ${filename} file"
+
+echo -e "#include\t\t\t\"${classname}.${flag_headerfmt}\"" > "$filename"
+echo >> "$filename"
+
+echo "${classname}::${classname}()" >> "$filename"
+echo "{" >> "$filename"
+echo "}" >> "$filename"
+echo >> "$filename"
+
+if [ $flag_coplien -eq 1 ]; then    
+    echo "${classname}::${classname}(const ${classname}& ${classname})" >> "$filename"
+    echo "{" >> "$filename"
+    echo "}" >> "$filename"
+    echo >> "$filename"
+fi
+
+echo "${classname}::~${classname}()" >> "$filename"
+echo "{" >> "$filename"
+echo "}" >> "$filename"
+echo >> "$filename"
+
+if [ $flag_coplien -eq 1 ]; then    
+    echo >> "$filename"
+    echo -e "${classname}&\t\t\t${classname}::operator=(const ${classname}& ${classname})" >> "$filename"
+    echo "{" >> "$filename"
+    echo "  if (this != &${classname})"  >> "$filename"
+    echo "    {"  >> "$filename"
+    echo "    }"  >> "$filename"
+    echo "  return (*this);"  >> "$filename"
+    echo "}" >> "$filename"
+    echo >> "$filename"
+fi
+
 echo
-success_msg "Class ${classname} generated with success :"
+
+if [ $flag_coplien -eq 1 ] || [ -n "$inheritancename" ]; then
+    success_msg "Class ${classname} generated with success :"
+else
+    success_msg "Class ${classname} generated with success"
+fi
 
 if [ $flag_coplien -eq 1 ]; then
     success_msg "Coplien's form done"
